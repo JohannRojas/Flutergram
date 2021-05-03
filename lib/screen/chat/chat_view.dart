@@ -72,8 +72,6 @@ class _ChatScreenState extends State<ChatScreen> {
           Chat(),
           Chat(),
           Chat(),
-          Chat(),
-          Chat(),
         ],
       ),
     );
@@ -89,7 +87,7 @@ class Chat extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       title: Text('Ana Rojas'),
-      subtitle: Text('Este es un mensaje para Ana'),
+      subtitle: Text('Este es un mensaje para Ana Rojas '),
       leading: SizedBox(
         width: 100,
         height: 100,
