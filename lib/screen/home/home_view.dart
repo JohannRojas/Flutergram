@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttergram/bloc/feed/feed_bloc.dart';
 import 'package:fluttergram/ui_shared/size_config.dart';
 import 'package:fluttergram/ui_shared/behavior.dart';
 import 'package:fluttergram/widgets/bottom_navbar.dart';
+import 'package:fluttergram/widgets/post.dart';
 
 class HomeScreen extends StatefulWidget {
   static String route = "/feed";
@@ -10,13 +13,17 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeState extends State<HomeScreen> {
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  String emailError;
-  String passwordError;
+  FeedBloc feedBloc;
+  dynamic posts;
 
-  void goTo(BuildContext context, String routeName) {
-    Navigator.pushNamed(context, routeName);
+  @override
+  void initState() {
+    feedBloc = BlocProvider.of<FeedBloc>(context);
+    feedBloc.add(Load());
+    setState(() {
+      posts = feedBloc.state.posts;
+    });
+    super.initState();
   }
 
   @override
@@ -32,6 +39,7 @@ class _HomeState extends State<HomeScreen> {
         ),
         leading: SizedBox(),
       ),
+      backgroundColor: Color(0xFFF5F6F9),
       bottomNavigationBar: BottomNavBar(selectedMenu: MenuState.home),
       body: ScrollConfiguration(
         behavior: NeverGrowthScroll(),
@@ -42,16 +50,17 @@ class _HomeState extends State<HomeScreen> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              SizedBox(height: SizeConfig.screenHeight * 0.04),
-              Text(
-                "Home",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: getProportionateScreenWidth(28),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: SizeConfig.screenHeight * 0.05),
+              if (posts?.isNotEmpty ?? false)
+                ...posts
+                    .map<Widget>(
+                      (post) => Post(
+                        author: post['author'],
+                        content: post['content'],
+                        postURL: post['photo'],
+                        profileURL: post['photo'],
+                      ),
+                    )
+                    .toList(),
             ],
           ),
         ),
