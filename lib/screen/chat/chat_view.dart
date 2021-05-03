@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:fluttergram/widgets/profile_menu.dart';
+import 'package:fluttergram/widgets/bottom_navbar.dart';
 
 class ChatScreen extends StatefulWidget {
   ChatScreen({Key key}) : super(key: key);
@@ -24,13 +24,14 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
+      bottomNavigationBar: BottomNavBar(selectedMenu: MenuState.message),
       body: ListView(
         children: [
           Column(
             children: [
               Container(
                 height: 40.0,
-                width: 380,
+                width: 420,
                 child: SearchInput(search: search),
               ),
             ],
@@ -55,18 +56,61 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
           SizedBox(height: 50,),
-          ProfileMenu(text: 'Anita la del barrio', icon: 'assets/images/profile2.jpg'),
-          ListTile(
-            leading: FadeInImage(
-              image: AssetImage('assets/images/profile2.jpg'),
-              placeholder: AssetImage('assets/images/profile2.jpg'),
-              fadeInCurve: Curves.ease,
-            ),
-            title: Text('data'),
-          )
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
+          Chat(),
         ],
       ),
     );
+  }
+}
+
+class Chat extends StatelessWidget {
+  const Chat({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text('Ana Rojas'),
+      subtitle: Text('Este es un mensaje para Ana'),
+      leading: SizedBox(
+        width: 100,
+        height: 100,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.blue,
+            width: 2,
+          ),
+          shape: BoxShape.circle,
+          image: DecorationImage(
+              image: AssetImage('assets/images/profile2.jpg'),
+              fit: BoxFit.contain),
+        ),
+        ),
+      ) 
+      /* FadeInImage(
+        image: AssetImage('assets/images/profile2.jpg'),
+        placeholder: AssetImage('assets/images/profile2.jpg'), */
+
+      );
   }
 }
 

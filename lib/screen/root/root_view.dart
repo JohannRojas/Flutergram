@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttergram/locator.dart';
 import 'package:fluttergram/screen/auth/auth_view.dart';
-import 'package:fluttergram/screen/chat/chat_view.dart';
 import 'package:fluttergram/screen/walkthrough/walkthrough_view.dart';
 import 'package:fluttergram/helpers/navigator.dart';
 import 'package:fluttergram/ui_shared/constants.dart';
@@ -26,7 +25,7 @@ class _RootState extends State<RootScreen> {
         navigator.replace(navigator.navigatorKey,
             route: WalkthroughScreen.route);
       } else {
-        navigator.replace(navigator.navigatorKey, route: ChatScreen.route);
+        navigator.replace(navigator.navigatorKey, route: AuthScreen.route);
       }
     });
   }
